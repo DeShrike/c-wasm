@@ -35,7 +35,7 @@ wasm-ld-8                           \
   --lto-O3                          \
   --allow-undefined                 \
   -z,stack-size=$[8 * 1024 * 1024]  \
-  -o main.wasm                     \
+  -o main.wasm                      \
   main.o
 
 # Done

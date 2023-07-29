@@ -1,4 +1,4 @@
-# Compile C to WebAssembly
+# Compile C to WebAssembly Experiment
 
 ## Dependancies
 
