@@ -1,20 +1,29 @@
 # Compile C to WebAssembly Experiment
 
-## Dependancies
+## Dependencies
 
 - LLVM - at least version 8
-- cmake - at least version 3.16
 - WABT
+- cmake - to build WABT, at least version 3.16
 
 ## Getting started
 
-Clone this repo, then
+Tested on _Ubuntu 18.04.1 LTS_
+
+Clone this repo and build:
 
 ```console
-./build.sh
+$ git clone
+$ cd https://github.com/DeShrike/c-wasm.git
+$ cd c-wasm
+$ ./build.sh
 ```
 
-Start a local webserver (see below).
+Start a local webserver:
+
+```console
+$ python3 -m http.server 8000
+```
 
 Point your browser to http://localhost:8000/index.html
 
@@ -51,14 +60,6 @@ $ cmake --build
 $ sudo make install
 ```
 
-https://surma.dev/things/c-to-webassembly/
-
-## Run a local webserver for testing
-
-```console
-python3 -m http.server 8000
-```
-
 ## Usefull commands
 
 ```console
@@ -66,5 +67,5 @@ $ wasm-objdump -x main.o
 ```
 
 ```console
-wasm2wat main.wasm
+$ wasm2wat main.wasm
 ```
