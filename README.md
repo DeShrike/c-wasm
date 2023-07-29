@@ -15,8 +15,7 @@ Install dependencies, see below.
 Clone this repo and build:
 
 ```console
-$ git clone
-$ cd https://github.com/DeShrike/c-wasm.git
+$ git clone https://github.com/DeShrike/c-wasm.git
 $ cd c-wasm
 $ ./build.sh
 ```
