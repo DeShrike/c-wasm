@@ -10,6 +10,8 @@
 
 Tested on _Ubuntu 18.04.1 LTS_
 
+Install dependencies, see below.
+
 Clone this repo and build:
 
 ```console
@@ -26,6 +28,8 @@ $ python3 -m http.server 8000
 ```
 
 Point your browser to http://localhost:8000/index.html
+
+![Screenshot](c_wasm_screenshot.png)
 
 ## Install LLVM
 
