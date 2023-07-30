@@ -1,9 +1,9 @@
-////////////
-// Example
-////////////
+/////////////
+// Example //
+/////////////
 
 // Function declared in Javascript
-void console(char* msg);
+void print(char* msg);
 float sqrt(float number);
 
 // Our memory allocator
@@ -19,19 +19,19 @@ void* c_malloc(int n)
 
 void c_free(void* p)
 {
-	// nop
+	// Not implemented yet
 }
 
 // Function to be called from Javascript
 int add(int a, int b)
 {
-	console("In C add()\n");
+	print("In C add()\n");
 	return a + b;
 }
 
 int sum(int a[], int len)
 {
-	console("In C sum()\n");
+	print("In C sum()\n");
   	int sum = 0;
   	for (int i = 0; i < len; i++)
 	{
@@ -43,6 +43,21 @@ int sum(int a[], int len)
 
 float square_root(float number)
 {
-	console("In C square_root()\n");
+	print("In C square_root()\n");
 	return sqrt(number);
+}
+
+#define MAX_MSG_LENGTH	100
+
+char* reverse(char* msg, int len)
+{
+	print(msg);
+	char* result = c_malloc(len + 1);
+	result[len] = 0;
+	for (int i = 0; i < len; ++i)
+	{
+		result[len - 1 - i] = msg[i];
+	}
+
+	return result;
 }

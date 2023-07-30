@@ -1,13 +1,17 @@
 * {
-    background-color: black;
-    color: #888888;
-    font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+  color: #888888;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    margin: 100px;
+  margin: 50px 100px;
+}
+
+h2 {
+  color: #909020;
 }
 
 .result {
-    color: blue;
+  color: blue;
 }

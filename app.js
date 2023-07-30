@@ -1,6 +1,5 @@
-let addfield;
-let sumfield;
-let sqrtfield;
+let w = null;
+let memory = null;
 
 function make_environment(...envs) {
   return new Proxy(envs, {
@@ -10,26 +9,77 @@ function make_environment(...envs) {
                   return env[prop];
               }
           }
+
           return (...args) => { console.error("NOT IMPLEMENTED: " + prop, args); }
       }
   });
 }
 
-const libm = {
+const imports = {
     "sqrt": Math.sqrt,
-    "console": console.log,
+    "print": print,
 };
 
 function run_wasm(obj) {
-  const w = obj.instance;
+  w = obj.instance;
+  memory = new Uint8Array(w.exports.memory.buffer);
 
-  let addresult = w.exports.add(42, 666);
-  addfield.innerHTML = addresult;
+  test1(w);
+  test2(w);
+  test3(w);
+  test4(w);
+}
 
-  const jsArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+async function load_wasm() {
+  fetch("main.wasm").then(response => 
+    response.arrayBuffer()
+  ).then(bytes => 
+    WebAssembly.instantiate(bytes, { "env": make_environment(imports) })
+  ).then(run_wasm);
+}
 
-  // Allocate memory for a few 32-bit integers
-  // and return get starting address.
+function extract_string(address)
+{
+  let s = "";
+  let i = address;
+  while (i < memory.length)
+  {
+    if (memory[i] == 0)
+    {
+      break;
+    }
+
+    s += String.fromCharCode(memory[i]);
+    i++;
+  }
+
+  return s;
+}
+
+function init() {
+  load_wasm();
+}
+
+function print(value)
+{
+  const s = extract_string(value);
+  console.log("print:", s);
+}
+
+function test1(w) {
+  element = document.getElementById("test1result");
+  let addResult = w.exports.add(42, 666);
+  element.innerHTML = addResult;
+}
+
+function test2(w) {
+  element = document.getElementById("test2result");
+  const jsArray = [];
+  for (let i = 1; i < 100; i++) {
+    jsArray.push(i);
+  }
+
+  // Allocate memory for a few 32-bit integers and return get starting address.
   const cArrayPointer = w.exports.c_malloc(jsArray.length * 4);
 
   // Turn that sequence of 32-bit integers into a Uint32Array, starting at that address.
@@ -43,25 +93,35 @@ function run_wasm(obj) {
   cArray.set(jsArray);
 
   // Run the function, passing the starting address and length.
-  let sumresult = w.exports.sum(cArrayPointer, cArray.length);
-  sumfield.innerHTML = sumresult;
+  let sumResult = w.exports.sum(cArrayPointer, cArray.length);
 
-  let sqrtresult = w.exports.square_root(2);
-  sqrtfield.innerHTML = sqrtresult;
+  // Free the memory.
+  w.exports.c_free(cArrayPointer);
+
+  element.innerHTML = sumResult;
 }
 
-async function init_wasm() {
-  fetch("main.wasm").then(response => 
-    response.arrayBuffer()
-  ).then(bytes => 
-    WebAssembly.instantiate(bytes, { "env": make_environment(libm) })
-  ).then(run_wasm);
+function test3(w) {
+  element = document.getElementById("test3result");
+  let sqrtResult = w.exports.square_root(2);
+  element.innerHTML = sqrtResult;
 }
 
-function init() {
-  addfield = document.getElementById("addfield");
-  sumfield = document.getElementById("sumfield");
-  sqrtfield = document.getElementById("sqrtfield");
+function test4(w) {
+  element = document.getElementById("test4result");
+  const msg = "WebAssembly";
 
-  init_wasm();
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(msg);
+  const ptr = w.exports.c_malloc(bytes.byteLength);
+  const buffer = new Uint8Array(w.exports.memory.buffer, ptr, bytes.byteLength + 1)
+  buffer.set(bytes);
+
+  // console.log(buffer, buffer.length);
+  let reverseResult = w.exports.reverse(ptr, buffer.length - 1);
+
+  const result = extract_string(reverseResult);
+
+  console.log("test4", reverseResult, typeof(reverseResult));
+  element.innerHTML = result;
 }
