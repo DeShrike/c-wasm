@@ -30,6 +30,12 @@ Point your browser to http://localhost:8000/index.html
 
 ![Screenshot](c_wasm_screenshot.png)
 
+Using NodeJS: (Tested with v16.20.1)
+
+```console
+$ node node-app.js
+```
+
 ## Install LLVM
 
 ```console
