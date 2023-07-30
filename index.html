@@ -15,25 +15,37 @@
 
   <h1>Running C functions in WebAssembly</h1>
   <hr/>
-  <p>
-    <h2>C function with 2 integer arguments</h2>
-    add(42, 666) = <span class="result" id="test1result"></span>
-  </p>
 
-  <p>
-    <h2>Pass integer array to C function</h2>
-    sum([1, 2, ... 100]) = <span class="result" id="test2result"></span>
-  </p>
+  <div class="wrapper">
+    <div>
+    <p>
+      <h2>C function with 2 integer arguments</h2>
+      add(42, 666) = <span class="result" id="test1result"></span>
+    </p>
 
-  <p>
-    <h2>C function with float argument</h2>
-    square_root(2) = <span class="result" id="test3result"></span>
-  </p>
+    <p>
+      <h2>Pass integer array to C function</h2>
+      sum([1, 2, ... 100]) = <span class="result" id="test2result"></span>
+    </p>
 
-  <p>
-    <h2>C function with string argument</h2>
-    reverse("WebAssembly") = <span class="result" id="test4result"></span>
-  </p>
+    <p>
+      <h2>C function with float argument</h2>
+      square_root(2) = <span class="result" id="test3result"></span>
+    </p>
+
+    <p>
+      <h2>C function with string argument</h2>
+      reverse("WebAssembly") = <span class="result" id="test4result"></span>
+    </p>
+  </div>
+
+    <div class="cnvC">
+      <div style="margin:0; padding:0;"><canvas id="canvasC" width="480" height="360"></canvas></div>
+      <button type="button" id="btnStartC">Start</button>
+      <button type="button" id="btnStopC" style="display:none;">Stop</button>
+    </div>
+
+  </div>
 
 <script type="module">
   init();

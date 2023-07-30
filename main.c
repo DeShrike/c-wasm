@@ -1,8 +1,8 @@
-/////////////
-// Example //
-/////////////
+///////////
+// Setup //
+///////////
 
-// Function declared in Javascript
+// Function implemented in Javascript
 void print(char* msg);
 float sqrt(float number);
 
@@ -22,7 +22,10 @@ void c_free(void* p)
 	// Not implemented yet
 }
 
-// Function to be called from Javascript
+////////////////////
+// Test Functions //
+////////////////////
+
 int add(int a, int b)
 {
 	print("In C add()\n");
@@ -47,8 +50,6 @@ float square_root(float number)
 	return sqrt(number);
 }
 
-#define MAX_MSG_LENGTH	100
-
 char* reverse(char* msg, int len)
 {
 	print(msg);
@@ -62,8 +63,9 @@ char* reverse(char* msg, int len)
 	return result;
 }
 
-/*********************************************/
-/* Mandelbrot ********************************/
+////////////////
+// Mandelbrot //
+////////////////
 
 double minR;
 double maxR;
