@@ -20,6 +20,8 @@ $ cd c-wasm
 $ ./build.sh
 ```
 
+### Browser
+
 Start a local webserver:
 
 ```console
@@ -30,7 +32,9 @@ Point your browser to http://localhost:8000/index.html
 
 ![Screenshot](c_wasm_screenshot.png)
 
-Using NodeJS: (Tested with v16.20.1)
+### NodeJS
+
+Tested with _v16.20.1_
 
 ```console
 $ node node-app.js
